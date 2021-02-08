@@ -90,43 +90,7 @@ public class servletAlumnos extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       ArrayList alumnosSeleccionados = new ArrayList<Alumno>();
-       int ultimoID = 30; //número máximo de alumnos
-       String grupoSeleccionado = request.getParameter("grupoSeleccionado");
-       String archivoAsociado="";
-        switch ( grupoSeleccionado ) {
-            case "2DAW_A": 
-                archivoAsociado = "2daw_a.txt";
-                break;
-            case "2DAW_B": 
-                archivoAsociado = "2daw_b.txt";
-                break;
-        }
-        String fichero = this.rutaFicheros.concat(File.separator).concat(archivoAsociado);
-        ArrayList<Alumno> alumnos = Utilidades.getAlumnos(fichero);
-       for (int i=1;i<=ultimoID;i++) {
-           boolean chequeado = false;
-           String valor="";
-           if ( request.getParameter(String.valueOf(i))!=null  ){
-               if ( !request.getParameter(String.valueOf(i)).equals("")) {
-                 valor = request.getParameter(String.valueOf(i));
-               }                
-            }
-           if ( valor.equals("1") ) {
-               for ( Alumno prod:alumnos ) {
-                   if ( prod.getId() == i  ) {
-                       Alumno alumnoAlalista = new Alumno(prod.getId(),prod.getNombre(),
-                               prod.getApellidos(),prod.getEmail());
-                       alumnosSeleccionados.add(alumnoAlalista);
-                   }
-               
-               }
-             }
-         }//recorre los inputs del formulario tpv
-       request.setAttribute("grupo", grupoSeleccionado);
-       request.setAttribute("alumnosSeleccionados", alumnosSeleccionados);
-       request.getRequestDispatcher("resumen.jsp").forward(request, response);
-       
+        
     }
 
     /**
